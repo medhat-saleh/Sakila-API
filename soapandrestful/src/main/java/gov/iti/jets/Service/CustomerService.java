@@ -4,15 +4,20 @@ import java.util.List;
 
 import gov.iti.jets.DAOS.GenericDao;
 import gov.iti.jets.DTOS.Customerdto;
+import gov.iti.jets.Mapper.AddressMapper;
 import gov.iti.jets.Mapper.CustomerMapper;
+import gov.iti.jets.Mapper.StoreMapper;
 import gov.iti.jets.entity.Customer;
 
 public class CustomerService {
     GenericDao dao = new GenericDao<Customer>(Customer.class);
 
     public Customerdto getCustomerById(int id) {
-        Customerdto customerdto = CustomerMapper.INSTANCE.todto((Customer) dao.findById(id));
+        Customer customer=(Customer) dao.findById(id);
 
+        Customerdto customerdto = CustomerMapper.INSTANCE.todto(customer);
+        customerdto.setAddressdto(AddressMapper.INSTANCE.todto(customer.getAddress()));
+customerdto.setStoredto(StoreMapper.INSTANCE.todto(customer.getStore()));
         return customerdto;
     }
 
@@ -23,7 +28,9 @@ public class CustomerService {
     }
 
     public boolean updateCustomer(Customerdto customerdto) {
-        Customer customer=CustomerMapper.INSTANCE.toentity(customerdto);
+        Customer customer=(Customer)CustomerMapper.INSTANCE.toentity(customerdto);
+        customer.setAddress(AddressMapper.INSTANCE.toentity(customerdto.getAddressdto()));
+        customer.setStore(StoreMapper.INSTANCE.toentity(customerdto.getStoredto()));
         return dao.update( customer);
     }
 
@@ -32,11 +39,12 @@ public class CustomerService {
     }
 
     public Customerdto AddCustomer(Customerdto customerdto) {
-        return CustomerMapper.INSTANCE.todto((Customer) dao.insert(CustomerMapper.INSTANCE.toentity(customerdto)));
+        Customer customer=(Customer)CustomerMapper.INSTANCE.toentity(customerdto);
+        customer.setAddress(AddressMapper.INSTANCE.toentity(customerdto.getAddressdto()));
+        customer.setStore(StoreMapper.INSTANCE.toentity(customerdto.getStoredto()));
+
+        return CustomerMapper.INSTANCE.todto((Customer)dao.insert(customer));
     }
 
-    public List<Customerdto> CustomerByName(String name) {
-        return dao.findByName(name, Customer.class).stream()
-                .map(customer -> CustomerMapper.INSTANCE.todto((Customer) customer)).toList();
-    }
+    
 }

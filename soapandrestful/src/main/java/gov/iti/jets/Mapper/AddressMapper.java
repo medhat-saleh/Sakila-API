@@ -10,4 +10,5 @@ public interface AddressMapper {
     AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
     Addressdto todto(Address address);
     Address toentity(Addressdto addressdto);
+    
 }

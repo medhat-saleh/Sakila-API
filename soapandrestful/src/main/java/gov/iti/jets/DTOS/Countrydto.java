@@ -1,7 +1,9 @@
 package gov.iti.jets.DTOS;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -18,6 +20,6 @@ public class Countrydto {
     private Short countryId;
     private String country;
     private Timestamp lastUpdate;
-    private Set<Citydto> cities = new HashSet<Citydto>(0);
+    private List<Citydto> countrycities = new ArrayList<Citydto>();
 
 }

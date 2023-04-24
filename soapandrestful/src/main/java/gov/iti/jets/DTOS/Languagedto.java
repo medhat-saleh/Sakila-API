@@ -1,8 +1,8 @@
 package gov.iti.jets.DTOS;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class Languagedto {
     private Byte languageId;
     private String name;
     private Timestamp lastUpdate;
-    private Set<Filmdto> filmsForLanguageId = new HashSet<Filmdto>(0);
-    private Set<Filmdto> filmsForOriginalLanguageId = new HashSet<Filmdto>(0);
+    private List<Filmdto> filmsForLanguage = new ArrayList<Filmdto>(0);
+    private List<Filmdto> filmsForOriginalLanguage = new ArrayList<Filmdto>(0);
 
 }

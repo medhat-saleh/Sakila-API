@@ -8,6 +8,5 @@ public interface ObjectDao<T> {
     boolean delete(int id);
     T findById(int id);
     T insert(T entity);
-    // boolean isExist();
-    List<T> findByName(String name, Class<T> entityClass);
+    
 }

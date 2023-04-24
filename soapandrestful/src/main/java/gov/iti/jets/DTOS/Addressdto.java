@@ -24,8 +24,5 @@ public class Addressdto {
     private String phone;
     private byte[] location;
     private Timestamp lastUpdate;
-    private Set<Staffdto> staffs = new HashSet<Staffdto>(0);
-    private Set<Customerdto> customers = new HashSet<Customerdto>(0);
-    private Set<Storedto> stores = new HashSet<Storedto>(0);
-
+   
 }

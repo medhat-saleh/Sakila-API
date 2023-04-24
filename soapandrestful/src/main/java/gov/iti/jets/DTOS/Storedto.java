@@ -17,11 +17,8 @@ import lombok.ToString;
 public class Storedto {
     
     private Byte storeId;
-    private Addressdto address;
-    private Staffdto staff;
+    private Addressdto addressdto;
+    private Staffdto staffdto;
     private Timestamp lastUpdate;
-    private Set<Staffdto> staffs = new HashSet<Staffdto>(0);
-    private Set<Inventorydto> inventories = new HashSet<Inventorydto>(0);
-    private Set<Customerdto> customers = new HashSet<Customerdto>(0);
-
+    
 }

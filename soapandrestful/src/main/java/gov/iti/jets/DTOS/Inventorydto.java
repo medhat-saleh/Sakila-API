@@ -1,8 +1,8 @@
 package gov.iti.jets.DTOS;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
@@ -19,6 +19,6 @@ public class Inventorydto {
     private Storedto store;
     private Filmdto film;
     private Timestamp lastUpdate;
-    private Set<Rentaldto> rentals = new HashSet<Rentaldto>(0);
+    private List<Rentaldto> rental = new ArrayList<Rentaldto>();
 
 }

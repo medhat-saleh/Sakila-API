@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import gov.iti.jets.DBResource;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -12,67 +13,95 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 public class GenericDao<T> implements ObjectDao<T> {
-    private final  Class<T> class1;
- private EntityManager entityManager=DBResource.getinstance();
- public GenericDao(Class<T> cruntclass){
-    this.class1=cruntclass;
- }
+    private final Class<T> class1;
+    private EntityManager entityManager = DBResource.getinstance();
+
+    public GenericDao(Class<T> cruntclass) {
+        this.class1 = cruntclass;
+    }
+
     @Override
     public List<T> getAll(Class<T> entityClass) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> cq = cb.createQuery(entityClass);
-        Root<T> rootEntry = cq.from(entityClass);
-        CriteriaQuery<T> all = cq.select(rootEntry);
-        TypedQuery<T> allQuery = entityManager.createQuery(all);
-        return allQuery.getResultList();    
+        try {
+            entityManager.getTransaction().begin();
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(entityClass);
+            Root<T> rootEntry = cq.from(entityClass);
+            CriteriaQuery<T> all = cq.select(rootEntry);
+            TypedQuery<T> allQuery = entityManager.createQuery(all);
+            entityManager.getTransaction().commit();
+            return allQuery.getResultList();
+
+        } catch (PersistenceException exception) {
+            System.out.println(exception.getMessage());
+
+        }
+        return null;
+
     }
 
     @Override
     public boolean update(T entity) {
-       if ( entityManager.merge(entity)!=null )return true;
-    return false;
+        try {
+            entityManager.getTransaction().begin();
+            if (entityManager.merge(entity) != null)
+                entityManager.getTransaction().commit();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+
     }
 
     @Override
     public boolean delete(int id) {
+        try {
+            entityManager.getTransaction().begin();
+
         T entity = findById(id);
-        if(entityManager.contains(entity)){
-        entityManager.remove(entity);
-    return true;
-    }
+        if (entityManager.contains(entity)) {
+            entityManager.remove(entity);
+            entityManager.getTransaction().commit();
+
+            return true;
+        }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
 
         return false;
     }
 
     @Override
     public T findById(int id) {
-        System.out.println("/////////////////////////////////////////");
-        return entityManager.find(class1 , id);   
-     }
+        try {
+
+            return entityManager.find(class1, id);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public T insert(T entity) {
-        entityManager.persist(entity);
+
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+            entityManager.getTransaction().commit();
+            return entity;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return entity;
     }
 
-    // @Override
-    // public boolean isExist(String propertyName, Object value) { 
-    //     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    //     CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-    //     Root<T> root = cq.from(class1);
-    //     Predicate predicate = cb.equal(root.get(propertyName), value);
-    //     cq.select(cb.count(root)).where(predicate);
-    //     return entityManager.createQuery(cq).getSingleResult() > 0;    }
-
-    @Override
-    public List<T> findByName(String name, Class<T> entityClass) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> cq = cb.createQuery(entityClass);
-        Root<T> root = cq.from(entityClass);
-        Predicate predicate = cb.equal(root.get(name), entityClass);
-        cq.select(root).where(predicate);
-        return entityManager.createQuery(cq).getResultList();    }
-
-    
+   
 }

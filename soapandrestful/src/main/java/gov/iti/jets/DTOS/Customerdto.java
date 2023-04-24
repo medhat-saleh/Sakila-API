@@ -16,15 +16,13 @@ import lombok.ToString;
 @ToString
 public class Customerdto {
     private Short customerId;
-    private Addressdto address;
-    private Storedto store;
+    private Addressdto addressdto;
+    private Storedto storedto;
     private String firstName;
     private String lastName;
     private String email;
     private boolean active;
     private Timestamp createDate;
     private Timestamp lastUpdate;
-    private Set<Paymentdto> payments = new HashSet<Paymentdto>(0);
-    private Set<Rentaldto> rentals = new HashSet<Rentaldto>(0);
-
+   
 }

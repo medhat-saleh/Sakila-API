@@ -18,10 +18,8 @@ import lombok.ToString;
 public class Citydto {
     
     private Short cityId;
-    private Countrydto country;
+    private Countrydto countrydto;
     private String city;
     private Timestamp lastUpdate;
-    @Transient
-    private Set<Addressdto> addresses = new HashSet<Addressdto>(0);
-
+   
 }

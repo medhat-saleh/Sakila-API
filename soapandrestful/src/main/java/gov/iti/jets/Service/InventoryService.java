@@ -35,8 +35,5 @@ public class InventoryService {
         return InventoryMapper.INSTANCE.todto((Inventory) dao.insert(InventoryMapper.INSTANCE.toentity(inventorydto)));
     }
 
-    public List<Inventorydto> inventoryByName(String name) {
-        return dao.findByName(name, Inventory.class).stream()
-                .map(inventory -> InventoryMapper.INSTANCE.todto((Inventory) inventory)).toList();
-    }
+   
 }

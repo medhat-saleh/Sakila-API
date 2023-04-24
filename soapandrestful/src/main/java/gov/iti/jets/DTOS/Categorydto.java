@@ -1,8 +1,8 @@
 package gov.iti.jets.DTOS;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
@@ -18,6 +18,6 @@ public class Categorydto {
     private Byte categoryId;
     private String name;
     private Timestamp lastUpdate;
-    private Set<FilmCategorydto> filmCategories = new HashSet<FilmCategorydto>(0);
+    private List<FilmCategorydto> filmCategoriesdto = new ArrayList<FilmCategorydto>(0);
   
 }

@@ -15,9 +15,9 @@ import lombok.ToString;
 @ToString
 public class Paymentdto {
     private Short paymentId;
-     private Staffdto staff;
-     private Rentaldto rental;
-     private Customerdto customer;
+     private Staffdto staffdto;
+     private Rentaldto rentaldto;
+     private Customerdto customerdto;
      private BigDecimal amount;
      private Timestamp paymentDate;
      private Timestamp lastUpdate;

@@ -1,8 +1,9 @@
 package gov.iti.jets.DTOS;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
@@ -16,12 +17,12 @@ import lombok.ToString;
 @ToString
 public class Rentaldto {
     private Integer rentalId;
-     private Staffdto staff;
-     private Inventorydto inventory;
-     private Customerdto customer;
+     private Staffdto staffdto;
+     private Inventorydto inventorydto;
+     private Customerdto customerdto;
      private Timestamp rentalDate;
      private Timestamp returnDate;
      private Timestamp lastUpdate;
-     private Set<Paymentdto> payments = new HashSet<Paymentdto>(0);
+     private List<Paymentdto> paymentdtos = new ArrayList<Paymentdto>(0);
 
 }

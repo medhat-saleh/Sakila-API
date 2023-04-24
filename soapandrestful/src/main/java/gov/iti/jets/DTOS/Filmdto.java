@@ -3,9 +3,10 @@ package gov.iti.jets.DTOS;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import gov.iti.jets.DTOS.ActorDTO.Actordto;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,8 @@ public class Filmdto {
     private String rating;
     private String specialFeatures;
     private Timestamp lastUpdate;
-    private Set<Inventorydto> inventories = new HashSet<Inventorydto>(0);
-    private Set<FilmActordto> filmActors = new HashSet<FilmActordto>(0);
-    private Set<FilmCategorydto> filmCategories = new HashSet<FilmCategorydto>(0);
+    private List<Inventorydto> inventoriy = new ArrayList<Inventorydto>();
+    private List<Actordto> filmActor = new ArrayList<Actordto>();
+    private List<Categorydto> filmCategor = new ArrayList<Categorydto>();
 
 }

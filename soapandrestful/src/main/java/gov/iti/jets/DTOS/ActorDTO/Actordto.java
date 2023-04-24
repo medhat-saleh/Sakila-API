@@ -1,33 +1,31 @@
-package gov.iti.jets.DTOS;
+package gov.iti.jets.DTOS.ActorDTO;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import gov.iti.jets.entity.FilmActor;
-import jakarta.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 @Data
 @XmlRootElement
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+//@JsonPropertyOrder({"actorId", "firstName", "lastName","lastUpdate","actorFilmdtos"})
+
 public class Actordto implements Serializable{
      Short actorId;
      String firstName;
      String lastName;
      Timestamp lastUpdate;
-    @JsonIgnore
-     List<FilmActordto> filmActors = new ArrayList<FilmActordto>(0);
+  
+     List<ActorFilmdto> actorFilmdtos = new ArrayList<ActorFilmdto>(0);
      
     
 }

@@ -16,18 +16,14 @@ import lombok.ToString;
 @ToString
 public class Staffdto {
     private Byte staffId;
-    private Addressdto address;
-    private Storedto store;
+    private Addressdto addressdto;
+    private Storedto storedto;
     private String firstName;
     private String lastName;
     private byte[] picture;
     private String email;
     private boolean active;
     private String username;
-    private String password;
     private Timestamp lastUpdate;
-    private Set<Paymentdto> payments = new HashSet<Paymentdto>(0);
-    private Set<Storedto> stores = new HashSet<Storedto>(0);
-    private Set<Rentaldto> rentals = new HashSet<Rentaldto>(0);
-
+   
 }

@@ -4,14 +4,19 @@ import java.util.List;
 
 import gov.iti.jets.DAOS.GenericDao;
 import gov.iti.jets.DTOS.Staffdto;
+import gov.iti.jets.Mapper.AddressMapper;
 import gov.iti.jets.Mapper.StaffMapper;
+import gov.iti.jets.Mapper.StoreMapper;
 import gov.iti.jets.entity.Staff;
 
 public class StaffService {
     GenericDao dao = new GenericDao<Staff>(Staff.class);
 
     public Staffdto getStafflById(int id) {
-        Staffdto staffdto = StaffMapper.INSTANCE.todto((Staff) dao.findById(id));
+        Staff staff=(Staff) dao.findById(id);
+        Staffdto staffdto = StaffMapper.INSTANCE.todto(staff);
+        staffdto.setAddressdto(AddressMapper.INSTANCE.todto(staff.getAddress()));
+        staffdto.setStoredto(StoreMapper.INSTANCE.todto(staff.getStore()));
 
         return staffdto;
     }
@@ -23,7 +28,10 @@ public class StaffService {
     }
 
     public boolean updateStaff(Staffdto staffdto) {
+    
         Staff staff=StaffMapper.INSTANCE.toentity(staffdto);
+        staff.setAddress(AddressMapper.INSTANCE.toentity(staffdto.getAddressdto()));
+        staff.setStore(StoreMapper.INSTANCE.toentity(staffdto.getStoredto()));
         return dao.update( staff);
     }
 
@@ -32,11 +40,12 @@ public class StaffService {
     }
 
     public Staffdto AddStaff(Staffdto staffdto) {
-        return StaffMapper.INSTANCE.todto((Staff) dao.insert(StaffMapper.INSTANCE.toentity(staffdto)));
+        Staff staff=StaffMapper.INSTANCE.toentity(staffdto);
+        staff.setAddress(AddressMapper.INSTANCE.toentity(staffdto.getAddressdto()));
+        staff.setStore(StoreMapper.INSTANCE.toentity(staffdto.getStoredto()));
+
+        return StaffMapper.INSTANCE.todto((Staff) dao.insert(staff));
     }
 
-    public List<Staffdto> StaffByName(String name) {
-        return dao.findByName(name, Staff.class).stream()
-                .map(staff -> StaffMapper.INSTANCE.todto((Staff) staff)).toList();
-    }   
+    
 }
